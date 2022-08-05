@@ -19,5 +19,22 @@ fetch(`http://localhost:3000/api/products/${id}`)
     document.getElementById('title').textContent = `${data.name}`;
     document.getElementById('price').textContent = `${data.price}`;
     document.getElementById('description').textContent = `${data.description}`;
-    document.getElementById('colors').innerHTML = `<option value="${data.colors}"> ${data.colors}</option> `;
-  });
+    for (let clr of data.colors){
+      let elementClr = document.createElement('option'); 
+      document.querySelector('#colors').appendChild(elementClr);
+      elementClr.textContent = clr;
+        
+    }
+     ajoutPanier()
+     }
+  );
+
+  const ajoutPanier = () => {
+     
+    let bouton = document.querySelector('#addToCart');
+    console.log(bouton);
+    bouton.addEventListener('click', () => {
+      let select = document.getElementById('colors');
+      console.log(select);
+    });
+  };
