@@ -23,18 +23,50 @@ fetch(`http://localhost:3000/api/products/${id}`)
       let elementClr = document.createElement('option'); 
       document.querySelector('#colors').appendChild(elementClr);
       elementClr.textContent = clr;
-        
+ 
     }
-     ajoutPanier()
+    //  ajoutPanier(colors);
      }
   );
-
+  
   const ajoutPanier = () => {
-     
+       
     let bouton = document.querySelector('#addToCart');
-    console.log(bouton);
-    bouton.addEventListener('click', () => {
-      let select = document.getElementById('colors');
-      console.log(select);
-    });
+
+     bouton.addEventListener('click', () => {
+      let qty = document.getElementById('quantity');
+      let kolor = document.getElementById('colors');
+      // let info = document.getElementById('data_id');
+
+       const idpanier =  id.value;
+       const couleur =  kolor.value;
+       const quantite = qty.value 
+
+       let tab = {
+        idProduit:id,
+        color:couleur,
+        quantity:quantite,
+        name:data.name,
+        } 
+
+        console.log(couleur);
+        console.log(quantite);
+
+       if (!couleur) {
+         alert('veuillez choisir une couleur');
+       } else {
+       }
+        if (quantite  < 1) {
+         alert('veuillez rentrer une quantite');
+       }  {
+       }
+       let ls = JSON.parse(localStorage.getItem('produit'));
+        localStorage.setItem('ls', JSON.stringify(ls));
+        ls.push(tab);
+      });
+         
   };
+     ajoutPanier ();
+
+       
+    
