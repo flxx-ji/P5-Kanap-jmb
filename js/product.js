@@ -7,7 +7,7 @@ console.log(prodId);
 const id = urlSearchParams.get("id");
 console.log(id);
 
-function fetchId() {
+function FetchId() {
 
 fetch(`http://localhost:3000/api/products/${id}`)
   .then((result) => result.json())
@@ -16,7 +16,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
     console.log(data);
    
     function showPanier () {
-
     document.querySelector('.item__img').innerHTML = `<img src = "${data.imageUrl}" alt = "${data.altTxt}">`;
     document.getElementById('title').textContent = `${data.name}`;
     document.getElementById('price').textContent = `${data.price}`;
@@ -40,21 +39,21 @@ fetch(`http://localhost:3000/api/products/${id}`)
      bouton.addEventListener('click', () => {
       let qty = document.getElementById('quantity');
       let kolor = document.getElementById('colors');
-      // let info = document.getElementById('data_id');
-
-       const idpanier =  id.value;
-       const couleur =  kolor.value;
+      // let in eur =  kolor.value;
+       const idpanier = id.value;
+       const couleur = kolor.value;
        const quantite = qty.value 
+    
+       console.log(idpanier);
 
        let tab = {
-        idProduit:id,
-        color:couleur,
-        quantity:quantite,
-        name:data.name,
+        idProduit: id,
+        color: couleur,
+        quantity: quantite,
+        name: data.name,
         } 
 
-        console.log(couleur);
-        console.log(quantite);
+         
 
        if (!couleur) {
          alert('veuillez choisir une couleur');
@@ -66,13 +65,30 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
            //INITIALISATION du LOCALSTORAGE
            let ls = JSON.parse(localStorage.getItem('produit'));
-
-           if (ls === null) {
+            if (ls === null) {
             ls = [];
            }
+           
+          let initProduct = false;
+
+            ls.forEach((element) => { 
+            if (element.idProduit === idpanier && element.color === couleur){
+              element.quantity = quantity.value
+              initProduct = true;
+            }
+
+            console.log(quantity.value);
+            console.log(element.idProduit);
+            console.log(element.color);
+            });
+             
           
+            if (!initProduct){
+              ls.push(tab);
+            }
+
            //RAJOUTE UN PRODUIT AU TABLEAU 
-            ls.push(tab);
+             
             
             // AJOUT AU LOCALSTORAGE
             localStorage.setItem('produit', JSON.stringify(ls));
@@ -81,19 +97,20 @@ fetch(`http://localhost:3000/api/products/${id}`)
       });
          
   }
-       ajoutPanier ();
+       ajoutPanier();
 
 
-       if(ajoutPanier <= 1){
-        alert("un article vient a ete ajoute au panier");
-       }
+    //    if( === ){
+         
+         
+    //    }
     })
     
     .catch((error) => {
       alert("server H.S");
     });
   }
-  fetchId();
+  FetchId();
 
   
   
