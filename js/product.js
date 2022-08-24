@@ -42,12 +42,12 @@ fetch(`http://localhost:3000/api/products/${id}`)
       // let in eur =  kolor.value;
        const idpanier = id.value;
        const couleur = kolor.value;
-       const quantite = qty.value 
+       const quantite = qty.value ;
     
        console.log(idpanier);
 
        let tab = {
-        idProduit: id,
+        idProduit: idpanier,
         color: couleur,
         quantity: quantite,
         name: data.name,
@@ -71,23 +71,29 @@ fetch(`http://localhost:3000/api/products/${id}`)
            
           let initProduct = false;
 
-            ls.forEach((element) => { 
+            ls.forEach( (element, index)  => { 
             if (element.idProduit === idpanier && element.color === couleur){
-              element.quantity = quantity.value
-              initProduct = true;
-            }
+                  ls[index].quantity = parseInt(element.quantity) + parseInt(quantity);
+            } 
+               console.log(ls[index].quantity);
+               console.log(element.quantity);
+               console.log(quantite);
 
-            console.log(quantity.value);
-            console.log(element.idProduit);
-            console.log(element.color);
+             localStorage.setItem('produit', JSON.stringify(ls));
+
+             initProduct = true;
+
+            console.log(ls);  
+            console.log(element);
+            console.log(index);
             });
              
-          
+          //RAJOUTE UN PRODUIT AU TABLEAU
             if (!initProduct){
               ls.push(tab);
             }
 
-           //RAJOUTE UN PRODUIT AU TABLEAU 
+            
              
             
             // AJOUT AU LOCALSTORAGE
@@ -100,10 +106,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
        ajoutPanier();
 
 
-    //    if( === ){
-         
-         
-    //    }
+    
     })
     
     .catch((error) => {
@@ -112,7 +115,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
   }
   FetchId();
 
-  
   
    
       
