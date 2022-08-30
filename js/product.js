@@ -44,7 +44,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
        const couleur = kolor.value;
        const quantite = qty.value ;
     
-       console.log(idpanier);
+        
 
        let tab = {
         idProduit: idpanier,
@@ -65,39 +65,45 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
            //INITIALISATION du LOCALSTORAGE
            let ls = JSON.parse(localStorage.getItem('produit'));
-            if (ls === null) {
-            ls = [];
-           }
+
+
+
+            if (ls) {
+            
            
-          let initProduct = false;
+ 
+            ls.forEach((element, key) => {
+              if (element.idProduit === id && element.color === couleur) {
 
-            ls.forEach( (element, index)  => { 
-            if (element.idProduit === idpanier && element.color === couleur){
-                  ls[index].quantity = parseInt(element.quantity) + parseInt(quantity);
-            } 
-               console.log(ls[index].quantity);
-               console.log(element.quantity);
-               console.log(quantite);
+                ls[key].quantity = parseInt(element.quantity) + parseInt(quantite);
 
-             localStorage.setItem('produit', JSON.stringify(ls));
+                localStorage.setItem('produit', JSON.stringify(ls));
 
-             initProduct = true;
+                initProduct = true;
+                alert('panier mis a jour');
 
-            console.log(ls);  
-            console.log(element);
-            console.log(index);
+              }
+
+              console.log(element.idProduit);
+              console.log(id);
+              console.log(element.color);
+              console.log(couleur);
+
+              console.log(quantite);
+
             });
              
           //RAJOUTE UN PRODUIT AU TABLEAU
             if (!initProduct){
               ls.push(tab);
+              localStorage.setItem('produit', JSON.stringify(ls));
             }
 
             
              
-            
+          } 
             // AJOUT AU LOCALSTORAGE
-            localStorage.setItem('produit', JSON.stringify(ls));
+             
          }
         
       });
