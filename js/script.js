@@ -31,3 +31,4 @@ function showProduct(data) {
 }
 
 console.log(showProduct);
+ 

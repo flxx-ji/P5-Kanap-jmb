@@ -47,10 +47,13 @@ fetch(`http://localhost:3000/api/products/${id}`)
         
 
        let tab = {
-        idProduit: idpanier,
+        image: data.imageUrl,
+        imageAlt:data.altTxt,
+        idProduit: id,
         color: couleur,
         quantity: quantite,
         name: data.name,
+        price: data.price,
         } 
 
          
@@ -65,12 +68,15 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
            //INITIALISATION du LOCALSTORAGE
            let ls = JSON.parse(localStorage.getItem('produit'));
+              
+           if (ls === null){
+            ls = [];
+           }
 
-
-
+           let initProduct = false;
             if (ls) {
             
-           
+                
  
             ls.forEach((element, key) => {
               if (element.idProduit === id && element.color === couleur) {
