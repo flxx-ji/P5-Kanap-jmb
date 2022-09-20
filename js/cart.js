@@ -38,3 +38,51 @@ for (i = 0; i < ls.length; i++) {
 document.getElementById('cart__items').innerHTML += itemCard;
 console.log(i);
 
+
+function sommeArticle () {
+  let sommeTotal = [];
+  for (i = 0 ; i < ls.length; i++){
+    let total = ls[i].price * ls[i].quantity;
+    console.log(total);
+   
+    
+   let testTotal =  sommeTotal.push(total);
+   console.log(testTotal);
+
+
+   const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    let  prixFinal = sommeTotal.reduce(reducer);
+
+   console.log(prixFinal);
+
+   document.getElementById('totalPrice').textContent = prixFinal;
+
+  
+  }
+}
+sommeArticle();
+
+ 
+ let btn_suppr = document.getElementsByClassName('deleteItem');
+ console.log(btn_suppr);
+
+
+
+function supprItem  (){
+      let btn_suppr = document.querySelectorAll('deleteItem');
+      console.log(btn_suppr);
+    
+    for (let a = 0; a < btn_suppr.length; a++) {
+        btn_suppr[a].addEventListener('click', () =>
+    { 
+       ls.splice(a, 1);
+      localStorage.setItem('produit', JSON.stringify(ls));
+      alert("article supprime");
+      location.reload();
+    })
+     
+  }
+    //  btn_suppr.addEventListener(click,);
+}
+ 
+ supprItem();
