@@ -3,19 +3,19 @@ function prod() {
     .then(function (response) {
       return response.json();
     })
-
+    //extraction des donnees dans le parametre de la fonction 'data'
     .then(function (data) {
       console.log(data);
 
       showProduct(data);
     })
-
+    // au cas ou qu'il y a une erreure.
     .catch((err) => console.log('Erreur : ' + err));
 }
-
 prod();
-console.log(prod);
 
+console.log(prod);
+// fonction pour l'affichage des produits et leurs infos
 function showProduct(data) {
   for (product of data) {
     let produit = `

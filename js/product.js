@@ -1,9 +1,10 @@
+//Recheche url
 const prodId = window.location.search;
 console.log(prodId);
-
+//manipulations des donnees propre de l'url
 const urlSearchParams = new URLSearchParams(prodId);
 console.log(prodId);
-
+//recuperation de la valeur de l'id
 const id = urlSearchParams.get("id");
 console.log(id);
 
@@ -11,7 +12,7 @@ function FetchId() {
 
 fetch(`http://localhost:3000/api/products/${id}`)
   .then((result) => result.json())
-
+   //extraction
   .then((data) => {
     console.log(data);
    
@@ -20,9 +21,11 @@ fetch(`http://localhost:3000/api/products/${id}`)
     document.getElementById('title').textContent = `${data.name}`;
     document.getElementById('price').textContent = `${data.price}`;
     document.getElementById('description').textContent = `${data.description}`;
+    //boucle pour chaques options des prod
     for (let clr of data.colors){
       let elementClr = document.createElement('option'); 
       document.querySelector('#colors').appendChild(elementClr);
+      //injection dans le texte la valeur de la boucle
       elementClr.textContent = clr;
  
     }
@@ -30,7 +33,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
       showPanier();
 
 
-      //ajoutPanier(colors);
+      //ajoutPanier;
       
   function ajoutPanier ()  {
        
@@ -44,7 +47,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
        const couleur = kolor.value;
        const quantite = qty.value ;
     
-        
+        //recup donnee tableau pour l'affichage dans l.storage
 
        let tab = {
         image: data.imageUrl,
@@ -77,14 +80,15 @@ fetch(`http://localhost:3000/api/products/${id}`)
             if (ls) {
             
                 
- 
+              //incrementation sans avoir a une ligne pour chaque couleur du produit
             ls.forEach((element, key) => {
               if (element.idProduit === id && element.color === couleur) {
 
                 ls[key].quantity = parseInt(element.quantity) + parseInt(quantite);
 
                 localStorage.setItem('produit', JSON.stringify(ls));
-
+               
+                //reinitialisation du l.storage
                 initProduct = true;
                 alert('panier mis a jour');
 
@@ -99,7 +103,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
             });
              
-          //RAJOUTE UN PRODUIT AU TABLEAU
+          //RAJOUTE UN PRODUIT AU TABLEAU en utilisant la methode push.
             if (!initProduct){
               ls.push(tab);
               localStorage.setItem('produit', JSON.stringify(ls));
@@ -108,7 +112,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
             
              
           } 
-            // AJOUT AU LOCALSTORAGE
+            
              
          }
         

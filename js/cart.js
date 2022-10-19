@@ -1,14 +1,18 @@
+//recherche dans le LS , produit pour effectuer une incrementation
+
 let ls = JSON.parse(localStorage.getItem('produit'));
 
 console.log(ls);
-   
+  
+//creation de 2 tableaux
 let itemCard = [];
 
 let productLs = [];
-
+//boucle d'incremention des produits et leurs options depuis le panier. 
 for (i = 0; i < ls.length; i++) {
   productLs.push(ls[i].id);
   console.log(ls[i]);
+  //infos recup et renseigner le carte de chaques articles et leurs options
   itemCard =
     itemCard +
     `<article class="cart__item" data-id="${ls[i].id}" data-color="${ls[i].color}">
@@ -35,10 +39,11 @@ for (i = 0; i < ls.length; i++) {
 }
 
 // deepcode ignore DOMXSS: <please specify a reason of ignoring this>
+//manip du DOM pour afficher les infos de chaque articles dans le panier
 document.getElementById('cart__items').innerHTML += itemCard;
 console.log(i);
 
-
+// fonction qui calculera la somme finale de la commande / 
 function sommeArticle () {
   let sommeTotal = [];
   for (i = 0 ; i < ls.length; i++){
@@ -62,7 +67,7 @@ function sommeArticle () {
 }
 sommeArticle();
 
-  
+  // fonction pour supprimer le ou les article(s) et rechargement page
 
 function supprItem(){
       let btn_suppr = document.querySelectorAll('.deleteItem');
@@ -94,7 +99,7 @@ function supprItem(){
 //     }, )
 //   }
 //  }
- // choix quantite et rechargement de pages
+ // choix quantite des articles et rechargement de pages
  function changeQty2(){
   let btn_qty = document.querySelectorAll('.itemQuantity');
   for (let d = 0; d < btn_qty.length; d++){
@@ -113,9 +118,10 @@ function supprItem(){
 
            //------------formulaire------------//
 
-                
+    //utilisation du DOM pour la partie infos de la commande, ecoute du clique    
 
 document.querySelector('#order').addEventListener('click', function (e) {
+  e.preventDefault();
 
   let contactForm = {
       firstName : document.querySelector('#firstName').value,
@@ -217,56 +223,58 @@ document.querySelector('#order').addEventListener('click', function (e) {
 
    testEmail();
 
+    function sendPost(){
+       if (testFirstName() && testLastName() && testAddress() && testCity() && testEmail() === true ){  
+        alert('formulaire OK');
+         let ls = JSON.parse(localStorage.getItem('produit'));
+         console.log(ls);
+        let products = [];
+        console.log(products);
+        for(let a = 0 ; a<  ls.length; a++){
+          products.push(ls[a].idProduit);
+          console.log(ls.length);
+        }
+        let totalInfo = {
+          products,
+          contact: contactForm,
+        };
+          let final = 
+         fetch('http://localhost:3000/api/products/order', {
+           method: 'POST', // or 'PUT'
+           headers: {
+             Accept: 'application/json',
+             'Content-Type': 'application/json',
+           },
+           body: JSON.stringify(totalInfo)
+         })
+           .then((response) => response.json())
+           .then((data) => {
+            window.location.href = `confirmation.html?id=${data.orderId}`;
+             console.log(data.orderId);
+           })
+           .catch((error) => {
+             console.error('Error:', error);
+           });
+           console.log(final);
+            
+           
 
+ 
+           
+      }else{
+        alert('tous les champs ne sont pas remplis')
+      };
+      
+    }
+
+    sendPost();
+           
+ 
 });
 
 
 
 
-
-      //---------lastName/nom de famille--------//
-    
-    
-       
-
-   //--------address/adresse---------
-
-   
-    
-
-    
-     //--------city/ville--------//
-      
-
-     //-----------Email--------//
-
-      
  
-
-
-     //--------BoutonCommander----------;;
-    //  let BoutonCommander = document.querySelector('#order');
-    //  BoutonCommander.addEventListener('click', function () {
-    //   validCommande(this);
-    //  });
-
-    //  const validCommande = function (inputSubmit){
-    //    let testOrder = OrderRegExp.test(inputSubmit.value);
-    //    console.log(testOrder);
-    //  };
-       
-    //  ----------tableau----------//
-
-    //  let tab = [
-    //    prenom = document.querySelector('#firstName'),
-
-    //    nom = document.querySelector('#lastName'),
-
-    //    adresse = document.querySelector('#address'),
-      
-    //    ville = document.querySelector('#city'),
-
-    //    email = document.querySelector('#email')
-    //  ];
-
+   
       
