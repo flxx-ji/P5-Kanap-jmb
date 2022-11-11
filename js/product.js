@@ -37,11 +37,11 @@ fetch(`http://localhost:3000/api/products/${id}`)
       
   function ajoutPanier ()  {
        
-    let bouton = document.querySelector('#addToCart');
+    const bouton = document.querySelector('#addToCart');
 
      bouton.addEventListener('click', () => {
-      let qty = document.getElementById('quantity');
-      let kolor = document.getElementById('colors');
+      const qty = document.getElementById('quantity');
+      const kolor = document.getElementById('colors');
       // let in eur =  kolor.value;
        const idpanier = id.value;
        const couleur = kolor.value;
@@ -49,7 +49,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
     
         //recup donnee tableau pour l'affichage dans l.storage
 
-       let tab = {
+       const tab = {
         image: data.imageUrl,
         imageAlt:data.altTxt,
         idProduit: id,
@@ -93,13 +93,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
                 alert('panier mis a jour');
 
               }
-
-              console.log(element.idProduit);
-              console.log(id);
-              console.log(element.color);
-              console.log(couleur);
-
-              console.log(quantite);
+ 
 
             });
              

@@ -2,12 +2,12 @@
 
 let ls = JSON.parse(localStorage.getItem('produit'));
 
-console.log(ls);
+ 
   
 //creation de 2 tableaux
-let itemCard = [];
+ let itemCard = [];
 
-let productLs = [];
+const productLs = [];
 //boucle d'incremention des produits et leurs options depuis le panier. 
 for (i = 0; i < ls.length; i++) {
   productLs.push(ls[i].id);
@@ -48,17 +48,17 @@ function sommeArticle () {
   let sommeTotal = [];
   for (i = 0 ; i < ls.length; i++){
     let total = ls[i].price * ls[i].quantity;
-    console.log(total);
+    
    
     
    let testTotal =  sommeTotal.push(total);
-   console.log(testTotal);
+   
 
 
    const reducer = (accumulator, currentValue) => accumulator + currentValue;
     let  prixFinal = sommeTotal.reduce(reducer);
 
-   console.log(prixFinal);
+   
 
    document.getElementById('totalPrice').textContent = prixFinal;
 
@@ -70,7 +70,7 @@ sommeArticle();
   // fonction pour supprimer le ou les article(s) et rechargement page
 
 function supprItem(){
-      let btn_suppr = document.querySelectorAll('.deleteItem');
+      const btn_suppr = document.querySelectorAll('.deleteItem');
       console.log(btn_suppr);
     
     for (let a = 0; a < btn_suppr.length; a++) {
@@ -87,18 +87,7 @@ function supprItem(){
 }
  
  supprItem();
-
-//  function changeQty() {
-//   let btn_qty = document.querySelectorAll('.itemQuantity');
-//   console.log(btn_qty);
-//   for (let e = 0; 0 < btn_qty.length; e++){
-//     btn_qty[e].addEventListener('change',(event) => {
-//       let result = document.querySelectorA('.result');
-//       result.textContent = `la quantite de l'article est de ${event.target.value}`;
-
-//     }, )
-//   }
-//  }
+ 
  // choix quantite des articles et rechargement de pages
  function changeQty2(){
   let btn_qty = document.querySelectorAll('.itemQuantity');
@@ -123,7 +112,7 @@ function supprItem(){
 document.querySelector('#order').addEventListener('click', function (e) {
   e.preventDefault();
 
-  let contactForm = {
+  const contactForm = {
       firstName : document.querySelector('#firstName').value,
       lastName : document.querySelector('#lastName').value,
       address : document.querySelector('#address').value,
@@ -138,7 +127,7 @@ document.querySelector('#order').addEventListener('click', function (e) {
      
       let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
 
-     let firstNameRegExp = new RegExp(/^[A-Za-z][A-Za-z' -]*$/);
+      const firstNameRegExp = new RegExp(/^[A-Za-z][A-Za-z' -]*$/);
       
       if (firstNameRegExp.test(contactForm.firstName)) {
        firstNameErrorMsg.textContent = '';
@@ -158,7 +147,7 @@ document.querySelector('#order').addEventListener('click', function (e) {
    function testLastName() {
      let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
 
-     let lastNameRegExp = new RegExp(/^[A-Za-z][A-Za-z' -]*$/);
+     const lastNameRegExp = new RegExp(/^[A-Za-z][A-Za-z' -]*$/);
 
      if (lastNameRegExp.test(contactForm.lastName)) {
        lastNameErrorMsg.textContent = '';
@@ -173,7 +162,7 @@ document.querySelector('#order').addEventListener('click', function (e) {
    function testAddress() {
      let addressErrorMsg = document.getElementById('addressErrorMsg');
 
-     let addressRegExp = new RegExp(/^[a-zA-Z0-9\s\,\''\-]*$/);
+     const addressRegExp = new RegExp(/^[a-zA-Z0-9\s\,\''\-]*$/);
 
      if (addressRegExp.test(contactForm.address)) {
        addressErrorMsg.textContent = ``;
@@ -191,7 +180,7 @@ document.querySelector('#order').addEventListener('click', function (e) {
 
     let cityErrorMsg = document.getElementById('cityErrorMsg');
 
-    let cityRegExp = new RegExp (/^[A-Za-z]{3,20}$/);
+    const cityRegExp = new RegExp (/^[A-Za-z]{3,20}$/);
 
     if (cityRegExp.test(contactForm.city)){
       cityErrorMsg.textContent = ``;
@@ -210,7 +199,7 @@ document.querySelector('#order').addEventListener('click', function (e) {
 
     let emailErrorMsg = document.getElementById('emailErrorMsg');
 
-    let emailRegExp = new RegExp(/^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/);
+    const emailRegExp = new RegExp(/^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/);
 
     if (emailRegExp.test(contactForm.email)){
       emailErrorMsg.textContent = ``;
@@ -229,10 +218,10 @@ document.querySelector('#order').addEventListener('click', function (e) {
          let ls = JSON.parse(localStorage.getItem('produit'));
          console.log(ls);
         let products = [];
-        console.log(products);
+         
         for(let a = 0 ; a<  ls.length; a++){
           products.push(ls[a].idProduit);
-          console.log(ls.length);
+           
         }
         let totalInfo = {
           products,
