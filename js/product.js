@@ -15,9 +15,22 @@ fetch(`http://localhost:3000/api/products/${id}`)
    //extraction
   .then((data) => {
     console.log(data);
-   
-    function showPanier () {
-    document.querySelector('.item__img').innerHTML = `<img src = "${data.imageUrl}" alt = "${data.altTxt}">`;
+
+     showPanier(data);
+
+     ajoutPanier(data);
+            });
+          }
+        FetchId();
+
+        console.log(FetchId);
+
+            function showPanier (data) {
+      const productImg = document.createElement('img');
+    document.querySelector('.item__img').appendChild(productImg);
+    productImg.src = data.imageUrl;
+    productImg.alt = data.altTxt;  
+
     document.getElementById('title').textContent = `${data.name}`;
     document.getElementById('price').textContent = `${data.price}`;
     document.getElementById('description').textContent = `${data.description}`;
@@ -35,7 +48,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
       //ajoutPanier;
       
-  function ajoutPanier ()  {
+  function ajoutPanier (data)  {
        
     const bouton = document.querySelector('#addToCart');
 
@@ -63,11 +76,9 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
        if (!couleur) {
          alert('veuillez choisir une couleur');
-       } else {
-       }
-        if (quantite  < 1) {
-         alert('veuillez rentrer une quantite');
-       } else { 
+       } else if(quantite  < 1)  {
+          alert('veuillez rentrer une quantite');
+      } else {
 
            //INITIALISATION du LOCALSTORAGE
            let ls = JSON.parse(localStorage.getItem('produit'));
@@ -95,7 +106,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
               }
  
 
-            });
              
           //RAJOUTE UN PRODUIT AU TABLEAU en utilisant la methode push.
             if (!initProduct){
@@ -105,15 +115,15 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
             
              
-          } 
+          })
             
              
-         }
+         
         
-      });
+      };
          
   }
-       ajoutPanier();
+        
 
 
     
@@ -123,7 +133,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
       alert("server H.S");
     });
   }
-  FetchId();
+   
 
   
    

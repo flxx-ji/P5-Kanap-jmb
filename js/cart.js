@@ -83,7 +83,7 @@ function supprItem(){
     });
      
   }
-    //  btn_suppr.addEventListener(click,);
+    
 }
  
  supprItem();
@@ -96,8 +96,13 @@ function supprItem(){
       let qtyModified = parseInt(btn_qty[d].value , 10);
       console.log(qtyModified);
       ls[d].quantity = qtyModified;
-      localStorage.setItem('produit', JSON.stringify(ls));
-      location.reload();
+      if (qtyModified  > 0 ){
+        localStorage.setItem('produit', JSON.stringify(ls));
+        location.reload();
+      }else{
+        alert("quantite non accepte !");
+      };
+       
     });
   }
    
@@ -217,12 +222,15 @@ document.querySelector('#order').addEventListener('click', function (e) {
         alert('formulaire OK');
          let ls = JSON.parse(localStorage.getItem('produit'));
          console.log(ls);
+
         let products = [];
          
         for(let a = 0 ; a<  ls.length; a++){
           products.push(ls[a].idProduit);
-           
-        }
+         }
+
+        //  if (products.quantity > 0 )
+         console.log(products.quantity);
         let totalInfo = {
           products,
           contact: contactForm,
@@ -238,7 +246,7 @@ document.querySelector('#order').addEventListener('click', function (e) {
          })
            .then((response) => response.json())
            .then((data) => {
-            window.location.href = `confirmation.html?id=${data.orderId}`;
+            // window.location.href = `confirmation.html?id=${data.orderId}`;
              console.log(data.orderId);
            })
            .catch((error) => {
